@@ -1,0 +1,25 @@
+{
+  "name": "More Cars - Motorsport Results Collector",
+  "version": "0.1.0",
+  "description": "A little helper that makes it easier to add motorsport results to the 'More Cars' database. (more-cars.net)",
+  "homepage_url": "https://github.com/dgerike/more-cars-motorsport-results-collector",
+  "permissions": [
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.dtm.com/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "32": "img/icon.png"
+  },
+  "manifest_version": 2
+}
