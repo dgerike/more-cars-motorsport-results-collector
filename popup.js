@@ -17,12 +17,12 @@ window.onload = function () {
             chrome.runtime.onMessage.addListener(function (response, sender) {
                 if (response.message === "collect-results-data_RESPONSE") {
                     let renderedList = renderList([
-                        ['position', response.position],
-                        ['driver_name', response.driver_name],
-                        ['team_name', response.team_name],
-                        ['race_time', response.race_time],
-                        ['fastest_lap_time', response.fastest_lap_time],
-                        ['points', response.points],
+                        ['position', response.result.position],
+                        ['driver_name', response.result.driver_name],
+                        ['team_name', response.result.team_name],
+                        ['race_time', response.result.race_time],
+                        ['fastest_lap_time', response.result.fastest_lap_time],
+                        ['points', response.result.points],
                     ]);
                     $('#resultsList').html(renderedList);
                 }
