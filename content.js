@@ -19,14 +19,22 @@ function extractResultsForPosition(pos) {
     }
 }
 
+function extractAllResultsForTheSelectedSession() {
+    return [
+        extractResultsForPosition(1),
+        extractResultsForPosition(2),
+        extractResultsForPosition(3),
+    ]
+}
+
 chrome.runtime.onMessage.addListener(
     function (request) {
         if (request.message === "collect-results-data_REQUEST") {
-            const resultRow = extractResultsForPosition(3);
+            const results = extractAllResultsForTheSelectedSession();
 
             chrome.runtime.sendMessage({
                 "message": "collect-results-data_RESPONSE",
-                "result": resultRow,
+                "results": results,
             });
         }
     }

@@ -16,14 +16,7 @@ window.onload = function () {
 
             chrome.runtime.onMessage.addListener(function (response, sender) {
                 if (response.message === "collect-results-data_RESPONSE") {
-                    let renderedList = renderList([
-                        ['position', response.result.position],
-                        ['driver_name', response.result.driver_name],
-                        ['team_name', response.result.team_name],
-                        ['race_time', response.result.race_time],
-                        ['fastest_lap_time', response.result.fastest_lap_time],
-                        ['points', response.result.points],
-                    ]);
+                    let renderedList = renderList(response.results);
                     $('#resultsList').html(renderedList);
                 }
             });
@@ -31,14 +24,20 @@ window.onload = function () {
     });
 };
 
-function renderList(items) {
+function renderList(results) {
     let html = '';
 
-    items.forEach(item => {
+    results.forEach(result => {
         html +=
             '<li class="list-group-item">' +
-            '<b>' + item[0] + '</b><br>' +
-            '<small>' + item[1] + '</small>' +
+                '<b>' + result.position +
+                    '. ' + result.driver_name +
+                    ' <small>' + result.team_name + '</small>' +
+                '</b>' +
+                '<span class="badge badge-danger float-right">' + result.points + ' points' + '</span>' +
+                '<br>' +
+                'Total time: ' + result.race_time +
+                ' <small class="float-right">Fastest lap: ' + result.fastest_lap_time + '</small>' +
             '</li>';
     });
 
