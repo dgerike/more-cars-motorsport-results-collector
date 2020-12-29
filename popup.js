@@ -16,10 +16,31 @@ window.onload = function () {
 
             chrome.runtime.onMessage.addListener(function (response, sender) {
                 if (response.message === "collect-results-data_RESPONSE") {
-                    $('#resultsList').text(response.driver_name);
+                    let renderedList = renderList([
+                        ['position', response.position],
+                        ['driver_name', response.driver_name],
+                        ['team_name', response.team_name],
+                        ['race_time', response.race_time],
+                        ['fastest_lap_time', response.fastest_lap_time],
+                        ['points', response.points],
+                    ]);
+                    $('#resultsList').html(renderedList);
                 }
             });
         }
     });
 };
 
+function renderList(items) {
+    let html = '';
+
+    items.forEach(item => {
+        html +=
+            '<li class="list-group-item">' +
+            '<b>' + item[0] + '</b><br>' +
+            '<small>' + item[1] + '</small>' +
+            '</li>';
+    });
+
+    return html;
+}
