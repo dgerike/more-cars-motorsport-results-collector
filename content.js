@@ -1,5 +1,5 @@
 function extractResultsForPosition(pos) {
-    let baseSelector = 'div.results__content.view table:last-child tr:nth-child(' + pos + ')';
+    const baseSelector = 'div.results__content.view table:last-child tr:nth-child(' + pos + ')';
 
     const position = document.querySelector(baseSelector + ' td:nth-child(1)').textContent;
     const driverFirstName = document.querySelector(baseSelector + ' td:nth-child(4)').childNodes[0].textContent;
@@ -20,11 +20,14 @@ function extractResultsForPosition(pos) {
 }
 
 function extractAllResultsForTheSelectedSession() {
-    return [
-        extractResultsForPosition(1),
-        extractResultsForPosition(2),
-        extractResultsForPosition(3),
-    ]
+    const results = [];
+
+    let resultsCount = document.querySelectorAll('div.results__content.view table:last-child tbody tr').length
+    for (let i = 1; i <= resultsCount; i++) {
+        results.push(extractResultsForPosition(i))
+    }
+
+    return results;
 }
 
 chrome.runtime.onMessage.addListener(
