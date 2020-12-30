@@ -4,12 +4,14 @@
   "description": "A little helper that makes it easier to add motorsport results to the 'More Cars' database. (more-cars.net)",
   "homepage_url": "https://github.com/dgerike/more-cars-motorsport-results-collector",
   "permissions": [
-    "https://www.dtm.com/*"
+    "https://www.dtm.com/*",
+    "https://more-cars.net/api/v1/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://www.dtm.com/*"
+        "https://www.dtm.com/*",
+        "https://more-cars.net/api/v1/*"
       ],
       "js": [
         "content.js"
