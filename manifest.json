@@ -14,7 +14,8 @@
         "https://more-cars.net/api/v1/*"
       ],
       "js": [
-        "content.js"
+        "content.js",
+        "libs/moment.min.js"
       ]
     }
   ],

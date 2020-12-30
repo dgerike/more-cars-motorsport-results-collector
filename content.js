@@ -19,12 +19,35 @@ function extractResultsForPosition(pos) {
     }
 }
 
+function convertRaceTime(raceTime, winnerRaceTime) {
+    if (raceTime.match(/.*[a-zA-Z].*/g)) { // "+2 Laps", "2L", "DNF"
+        raceTime = null;
+    } else if (raceTime.match(/\+/g)) { // "+10.199", "+1:15.953"
+        raceTime = raceTime.replace('+', '');
+        raceTime = moment.duration(raceTime, 's');
+        raceTime = moment.duration(winnerRaceTime).add(raceTime).toISOString();
+    } else if ((raceTime.match(/:/g) || []).length === 1) { // "57:49.271"
+        raceTime = '0:' + raceTime;
+        raceTime = moment.duration(raceTime).toISOString()
+    } else if ((raceTime.match(/:/g) || []).length === 2) { // "1:13:27.930"
+        raceTime = moment.duration(raceTime).toISOString()
+    }
+
+    return raceTime;
+}
+
 function extractAllResultsForTheSelectedSession() {
     const results = [];
 
     let resultsCount = document.querySelectorAll('div.results__content.view table:last-child tbody tr').length
     for (let i = 1; i <= resultsCount; i++) {
-        results.push(extractResultsForPosition(i))
+        let result = extractResultsForPosition(i);
+        if (i === 1) {
+            result.race_time = convertRaceTime(result.race_time);
+        } else {
+            result.race_time = convertRaceTime(result.race_time, results[0].race_time);
+        }
+        results.push(result)
     }
 
     return results;
