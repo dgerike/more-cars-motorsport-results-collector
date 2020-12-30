@@ -10,12 +10,12 @@ function extractResultsForPosition(pos) {
     const points = document.querySelector(baseSelector + ' td:nth-child(10)').textContent;
 
     return {
-        "position": position,
+        "position": parseInt(position),
         "driver_name": driverFirstName + driverLastName,
         "team_name": teamName,
-        "race_time": raceTime,
+        "race_time": raceTime.trim(),
         "fastest_lap_time": fastestLap,
-        "points": points,
+        "points": parseInt(points),
     }
 }
 
