@@ -56,7 +56,7 @@ function fetchRacingEventsFromMoreCars(racingSeriesId) {
         type: 'GET',
         url: 'https://more-cars.net/api/v1' + endpoint,
     }).done(function (response) {
-        let renderedEventList = renderEventList(response)
+        let renderedEventList = renderEventList(response.data)
         $('#racingEventList').html(renderedEventList);
     }).fail(function (response, status) {
 
@@ -93,7 +93,7 @@ function fetchRacingEventSessionsFromMoreCars(eventId) {
         type: 'GET',
         url: 'https://more-cars.net/api/v1' + endpoint,
     }).done(function (response) {
-        let renderedSessionList = renderSessionsList(response)
+        let renderedSessionList = renderSessionsList(response.data)
         $('#racingEventSessionsList').html(renderedSessionList);
     }).fail(function (response, status) {
 
