@@ -19,21 +19,34 @@ function extractResultsForPosition(pos) {
     }
 }
 
-function convertRaceTime(raceTime, winnerRaceTime) {
-    if (raceTime.match(/.*[a-zA-Z].*/g)) { // "+2 Laps", "2L", "DNF"
-        raceTime = null;
-    } else if (raceTime.match(/\+/g)) { // "+10.199", "+1:15.953"
-        raceTime = raceTime.replace('+', '');
-        raceTime = moment.duration(raceTime, 's');
-        raceTime = moment.duration(winnerRaceTime).add(raceTime).toISOString();
-    } else if ((raceTime.match(/:/g) || []).length === 1) { // "57:49.271"
-        raceTime = '0:' + raceTime;
-        raceTime = moment.duration(raceTime).toISOString()
-    } else if ((raceTime.match(/:/g) || []).length === 2) { // "1:13:27.930"
-        raceTime = moment.duration(raceTime).toISOString()
+function normalizeDuration(duration) {
+    if (!duration) {
+        return null
     }
 
-    return raceTime;
+    if (duration.match(/.*[a-zA-Z].*/g)) {
+        return null
+    }
+
+    duration = duration.replace('+', '') // "+10.199"
+
+    if ((duration.match(/:/g) || []).length === 0) { // "53.027"
+        duration = '0:0:' + duration
+    } else if ((duration.match(/:/g) || []).length === 1) { // "1:05.095"
+        duration = '0:' + duration
+    }
+
+    return duration
+}
+
+function convertRaceTime(raceTime, winnerRaceTime) {
+    let normalizedRaceTime = normalizeDuration(raceTime)
+
+    if (raceTime.match(/\+/g)) { // "+10.199", "+1:15.953"
+        normalizedRaceTime = moment.duration(winnerRaceTime).add(normalizedRaceTime)
+    }
+
+    return moment.duration(normalizedRaceTime).toISOString()
 }
 
 function extractAllResultsForTheSelectedSession() {
