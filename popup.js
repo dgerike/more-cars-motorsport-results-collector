@@ -119,6 +119,19 @@ function renderSessionsList(sessions) {
     return html;
 }
 
+let accessTokenInput = document.getElementById('accessTokenInput');
+chrome.storage.local.get(['accessToken'], function (storage) {
+    if (storage.accessToken) {
+        accessTokenInput.value = storage.accessToken;
+    }
+});
+
+let saveAccessTokenBtn = document.getElementById('saveAccessToken');
+saveAccessTokenBtn.onclick = function () {
+    let newAccessToken = document.getElementById('accessTokenInput').value;
+    chrome.storage.local.set({'accessToken': newAccessToken});
+};
+
 let addResultsButton = document.getElementById('addResults');
 addResultsButton.onclick = function () {
     addResults(sessionResults)
