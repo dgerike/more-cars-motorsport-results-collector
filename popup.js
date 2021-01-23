@@ -1,3 +1,5 @@
+let sessionResults = null
+
 window.onload = function () {
     chrome.tabs.query({
         active: true,
@@ -16,10 +18,11 @@ window.onload = function () {
 
             chrome.runtime.onMessage.addListener(function (response, sender) {
                 if (response.message === "collect-results-data_RESPONSE") {
-                    let renderedList = renderList(response.results);
-                    $('#resultsList').html(renderedList);
+                    sessionResults = response.results
+                    let renderedList = renderList(response.results)
+                    $('#resultsList').html(renderedList)
                 }
-            });
+            })
         }
     });
 };
@@ -106,7 +109,7 @@ function renderSessionsList(sessions) {
     html += '<option selected disabled>--- Select Session ---</option>'
     sessions.forEach(session => {
         html +=
-            '<option value="' + session.id + '">' +
+            '<option value="' + session.id + '" data-start-date="' + session.start_date + '">' +
             session.name +
             ' - ' + session.duration + ' ' + session.duration_unit +
             ' (' + session.start_time + ')' +
@@ -114,4 +117,32 @@ function renderSessionsList(sessions) {
     });
 
     return html;
+}
+
+let addResultsButton = document.getElementById('addResults');
+addResultsButton.onclick = function () {
+    addResults(sessionResults)
+};
+
+function addResults(results) {
+    results.forEach(result => {
+        let payloadResult = {
+            "name": 'a',
+            "position": result.position,
+            "driver_name": result.driver_name,
+            "team_name": result.team_name,
+            "race_time": result.race_time,
+            "points": result.points,
+        }
+
+        let payloadLapTime = {
+            "name": 'a',
+            "lap_time": result.fastest_lap_time,
+            "driver_name": result.driver_name,
+            "date": $($('#racingEventSessionsList option:selected')[0]).data('start-date'),
+        }
+
+        console.log(payloadResult)
+        console.log(payloadLapTime)
+    })
 }
