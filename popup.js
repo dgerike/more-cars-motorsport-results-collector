@@ -147,6 +147,7 @@ function addResults(results) {
             "team_name": result.team_name,
             "race_time": result.race_time,
             "laps": result.laps,
+            "status": result.status,
             "points": result.points,
         }
 

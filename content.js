@@ -25,11 +25,13 @@ function extractResultsForPosition(pos) {
     let fastestLap = null
     let points = null
     let laps = null
+    let status = null
 
     if (sessionType === 'race') {
         raceTime = document.querySelector(baseSelector + ' td:nth-child(7)').textContent.trim();
         fastestLap = document.querySelector(baseSelector + ' td:nth-child(8)').textContent;
         points = document.querySelector(baseSelector + ' td:nth-child(10)').textContent;
+        status = document.querySelector(baseSelector + ' td:nth-child(7)').textContent;
     } else if (sessionType === 'practice') {
         fastestLap = document.querySelector(baseSelector + ' td:nth-child(7)').textContent;
         laps = document.querySelector(baseSelector + ' td:nth-child(9)').textContent;
@@ -39,11 +41,12 @@ function extractResultsForPosition(pos) {
 
     return {
         "position": parseInt(position),
-        "driver_name": driverFirstName + driverLastName,
+        "driver_name": driverFirstName + driverLastName.trim(),
         "team_name": teamName,
         "race_time": raceTime,
         "fastest_lap_time": fastestLap,
         "laps": parseInt(laps),
+        "status": status.trim(),
         "points": parseInt(points),
     }
 }
@@ -78,6 +81,16 @@ function convertRaceTime(raceTime, winnerRaceTime) {
     return moment.duration(normalizedRaceTime).toISOString()
 }
 
+function convertStatus(status) {
+    const possibleStatus = ['DNF', 'DNS', 'DNC', 'DSQ']
+
+    if (possibleStatus.includes(status)) {
+        return status
+    }
+
+    return 'Finished'
+}
+
 function extractAllResultsForTheSelectedSession() {
     const results = [];
 
@@ -95,6 +108,10 @@ function extractAllResultsForTheSelectedSession() {
 
         if (result.fastest_lap_time) {
             result.fastest_lap_time = convertRaceTime(result.fastest_lap_time);
+        }
+
+        if (result.status) {
+            result.status = convertStatus(result.status);
         }
 
         results.push(result)
