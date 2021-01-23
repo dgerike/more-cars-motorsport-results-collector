@@ -24,11 +24,15 @@ function extractResultsForPosition(pos) {
     let raceTime = null
     let fastestLap = null
     let points = null
+    let laps = null
 
     if (sessionType === 'race') {
         raceTime = document.querySelector(baseSelector + ' td:nth-child(7)').textContent.trim();
         fastestLap = document.querySelector(baseSelector + ' td:nth-child(8)').textContent;
         points = document.querySelector(baseSelector + ' td:nth-child(10)').textContent;
+    } else if (sessionType === 'practice') {
+        fastestLap = document.querySelector(baseSelector + ' td:nth-child(7)').textContent;
+        laps = document.querySelector(baseSelector + ' td:nth-child(9)').textContent;
     } else {
         fastestLap = document.querySelector(baseSelector + ' td:nth-child(7)').textContent;
     }
@@ -39,6 +43,7 @@ function extractResultsForPosition(pos) {
         "team_name": teamName,
         "race_time": raceTime,
         "fastest_lap_time": fastestLap,
+        "laps": parseInt(laps),
         "points": parseInt(points),
     }
 }
