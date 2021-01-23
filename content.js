@@ -79,6 +79,7 @@ function extractAllResultsForTheSelectedSession() {
     let resultsCount = document.querySelectorAll('div.results__content.view table:last-child tbody tr').length
     for (let i = 1; i <= resultsCount; i++) {
         let result = extractResultsForPosition(i);
+
         if (result.race_time) {
             if (i === 1) {
                 result.race_time = convertRaceTime(result.race_time);
@@ -86,6 +87,11 @@ function extractAllResultsForTheSelectedSession() {
                 result.race_time = convertRaceTime(result.race_time, results[0].race_time);
             }
         }
+
+        if (result.fastest_lap_time) {
+            result.fastest_lap_time = convertRaceTime(result.fastest_lap_time);
+        }
+
         results.push(result)
     }
 
