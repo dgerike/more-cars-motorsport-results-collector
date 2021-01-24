@@ -138,7 +138,31 @@ addResultsButton.onclick = function () {
     addResults(sessionResults)
 };
 
+let totalSteps = 1
+let stepSize = 1
+let currentStep = 0
+let progress = 0
+
+function initializeProgressBar(stepCount) {
+    totalSteps = stepCount
+    stepSize = 100 / totalSteps
+    currentStep = 0
+    progress = 0
+}
+
+function updateProgress(steps) {
+    currentStep = currentStep + steps
+    progress = stepSize * currentStep
+    $('#uploadProgress').css('width', progress + '%')
+    if(totalSteps === currentStep) {
+        $('#uploadProgress').text('Upload completed')
+        $('#uploadProgress').removeClass('progress-bar-animated')
+    }
+}
+
 function addResults(results) {
+    initializeProgressBar(results.length * 4)
+
     results.forEach(result => {
         let payloadResult = {
             "name": 'a',
@@ -172,6 +196,8 @@ function addResults(results) {
                 },
                 data: JSON.stringify(payloadResult)
             }).done(function (createdRaceResult) { // connect result and session
+                updateProgress(1)
+
                 raceResultId = createdRaceResult.data.id
                 let endpoint2 = 'race-results/' + raceResultId + '/racing-event-sessions/' + sessionId
                 $.ajax({
@@ -181,6 +207,8 @@ function addResults(results) {
                         'access-token': storage.accessToken
                     }
                 }).done(function () { // post lap time
+                    updateProgress(1)
+
                     let endpoint3 = 'lap-times'
                     $.ajax({
                         type: 'POST',
@@ -191,6 +219,8 @@ function addResults(results) {
                         },
                         data: JSON.stringify(payloadLapTime)
                     }).done(function (createdLapTime) { // connect lap time and result
+                        updateProgress(1)
+
                         let endpoint4 = 'lap-times/' + createdLapTime.data.id + '/race-results/' + raceResultId
                         $.ajax({
                             type: 'POST',
@@ -198,6 +228,8 @@ function addResults(results) {
                             headers: {
                                 'access-token': storage.accessToken
                             }
+                        }).done(function () {
+                            updateProgress(1)
                         })
                     })
                 })
