@@ -120,6 +120,10 @@ function renderSessionsList(sessions) {
     return html;
 }
 
+$('#racingEventSessionsList').change(function () {
+    $('#addResults').prop('disabled', false);
+});
+
 let accessTokenInput = document.getElementById('accessTokenInput');
 chrome.storage.local.get(['accessToken'], function (storage) {
     if (storage.accessToken) {
