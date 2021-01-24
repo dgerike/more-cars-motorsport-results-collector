@@ -19,7 +19,7 @@ function extractResultsForPosition(pos) {
     const baseSelector = 'div.results__content.view table:last-child tr:nth-child(' + pos + ')';
     const position = document.querySelector(baseSelector + ' td:nth-child(1)').textContent;
     const driverFirstName = document.querySelector(baseSelector + ' td:nth-child(4)').childNodes[0].textContent;
-    const driverLastName = document.querySelector(baseSelector + ' td:nth-child(4)').childNodes[1].textContent;
+    const driverLastName = document.querySelector(baseSelector + ' td:nth-child(4)').childNodes[1].textContent.trim();
     const teamName = document.querySelector(baseSelector + ' td:nth-child(4)').childNodes[3].textContent;
     let raceTime = null
     let fastestLap = null
@@ -31,7 +31,7 @@ function extractResultsForPosition(pos) {
         raceTime = document.querySelector(baseSelector + ' td:nth-child(7)').textContent.trim();
         fastestLap = document.querySelector(baseSelector + ' td:nth-child(8)').textContent;
         points = document.querySelector(baseSelector + ' td:nth-child(10)').textContent;
-        status = document.querySelector(baseSelector + ' td:nth-child(7)').textContent;
+        status = document.querySelector(baseSelector + ' td:nth-child(7)').textContent.trim();
     } else if (sessionType === 'practice') {
         fastestLap = document.querySelector(baseSelector + ' td:nth-child(7)').textContent;
         laps = document.querySelector(baseSelector + ' td:nth-child(9)').textContent;
@@ -41,12 +41,12 @@ function extractResultsForPosition(pos) {
 
     return {
         "position": parseInt(position),
-        "driver_name": driverFirstName + driverLastName.trim(),
+        "driver_name": driverFirstName + driverLastName,
         "team_name": teamName,
         "race_time": raceTime,
         "fastest_lap_time": fastestLap,
         "laps": parseInt(laps),
-        "status": status.trim(),
+        "status": status,
         "points": parseInt(points),
     }
 }
