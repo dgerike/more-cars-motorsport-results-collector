@@ -1,6 +1,16 @@
 let sessionResults = null
 let apiBaseUrl = 'https://more-cars.net'
 
+let racingSeries = [
+    {
+        "name": "DTM",
+        "more_cars_id": 661,
+        "source": "https://www.dtm.com/",
+    }
+]
+
+renderRacingSeriesList(racingSeries)
+
 window.onload = function () {
     chrome.tabs.query({
         active: true,
@@ -46,6 +56,17 @@ function renderList(results) {
     });
 
     return html;
+}
+
+function renderRacingSeriesList(seriesList) {
+    seriesList.forEach(series => {
+        let html =
+            '<option value="' + series.more_cars_id + '">' +
+            series.name +
+            '</option>'
+
+        $('#racingSeriesList').append(html)
+    })
 }
 
 $('#racingSeriesList').change(function () {
