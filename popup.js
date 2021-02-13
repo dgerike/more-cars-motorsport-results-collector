@@ -11,15 +11,20 @@ let racingSeries = [
 
 renderRacingSeriesList(racingSeries)
 
+function isSupportedRacingSeries(currentUrl) {
+    return racingSeries.some(series => {
+        return currentUrl.includes(series.source)
+    })
+}
+
 window.onload = function () {
     chrome.tabs.query({
         active: true,
-        lastFocusedWindow: true
+        currentWindow: true
     }, function (tabs) {
         const currentUrl = tabs[0].url;
-        const url_pattern = 'dtm.com';
 
-        if (currentUrl.includes(url_pattern)) {
+        if (isSupportedRacingSeries(currentUrl)) {
             chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
                 const activeTab = tabs[0];
                 chrome.tabs.sendMessage(activeTab.id, {
