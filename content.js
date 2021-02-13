@@ -13,14 +13,22 @@ function detectSessionType() {
     return 'qualifying'
 }
 
-function extractResultsForPosition(pos) {
+function extractDataPoint(baseSelector, fieldName, selectors) {
+    return document
+        .querySelector(baseSelector + ' ' + selectors[fieldName])
+        .childNodes[selectors[fieldName + '_childnode']].textContent.trim()
+}
+
+function extractResultsForPosition(pos, selectors) {
     let sessionType = detectSessionType()
 
-    const baseSelector = 'div.results__content.view table:last-child tr:nth-child(' + pos + ')';
-    const position = document.querySelector(baseSelector + ' td:nth-child(1)').textContent;
-    const driverFirstName = document.querySelector(baseSelector + ' td:nth-child(4)').childNodes[0].textContent;
-    const driverLastName = document.querySelector(baseSelector + ' td:nth-child(4)').childNodes[1].textContent.trim();
-    const teamName = document.querySelector(baseSelector + ' td:nth-child(4)').childNodes[3].textContent;
+    const baseSelector = selectors.table_selector + ' ' + selectors.row_selector + ':nth-child(' + pos + ')'
+
+    const position = extractDataPoint(baseSelector, 'position', selectors)
+    const driverName = extractDataPoint(baseSelector, 'driver_name', selectors)
+    const driverFirstName = extractDataPoint(baseSelector, 'driver_first_name', selectors)
+    const teamName = extractDataPoint(baseSelector, 'team_name', selectors)
+
     let raceTime = null
     let fastestLap = null
     let points = null
@@ -28,10 +36,10 @@ function extractResultsForPosition(pos) {
     let status = null
 
     if (sessionType === 'race') {
-        raceTime = document.querySelector(baseSelector + ' td:nth-child(7)').textContent.trim();
-        fastestLap = document.querySelector(baseSelector + ' td:nth-child(8)').textContent;
-        points = document.querySelector(baseSelector + ' td:nth-child(10)').textContent;
-        status = document.querySelector(baseSelector + ' td:nth-child(7)').textContent.trim();
+        raceTime = extractDataPoint(baseSelector, 'race_time', selectors)
+        fastestLap = extractDataPoint(baseSelector, 'fastest_lap', selectors)
+        points = extractDataPoint(baseSelector, 'points', selectors)
+        status = extractDataPoint(baseSelector, 'status', selectors)
     } else if (sessionType === 'practice') {
         fastestLap = document.querySelector(baseSelector + ' td:nth-child(7)').textContent;
         laps = document.querySelector(baseSelector + ' td:nth-child(9)').textContent;
@@ -41,7 +49,7 @@ function extractResultsForPosition(pos) {
 
     return {
         "position": parseInt(position),
-        "driver_name": driverFirstName + driverLastName,
+        "driver_name": (driverFirstName + ' ' + driverName).trim(),
         "team_name": teamName,
         "race_time": raceTime,
         "fastest_lap_time": fastestLap,
@@ -91,12 +99,12 @@ function convertStatus(status) {
     return 'Finished'
 }
 
-function extractAllResultsForTheSelectedSession() {
+function extractAllResultsForTheSelectedSession(selectors) {
     const results = [];
 
-    let resultsCount = document.querySelectorAll('div.results__content.view table:last-child tbody tr').length
+    let resultsCount = document.querySelectorAll(selectors.table_selector + ' ' + selectors.row_selector).length
     for (let i = 1; i <= resultsCount; i++) {
-        let result = extractResultsForPosition(i);
+        let result = extractResultsForPosition(i, selectors);
 
         if (result.race_time) {
             if (i === 1) {
@@ -123,7 +131,7 @@ function extractAllResultsForTheSelectedSession() {
 chrome.runtime.onMessage.addListener(
     function (request) {
         if (request.message === "collect-results-data_REQUEST") {
-            const results = extractAllResultsForTheSelectedSession();
+            const results = extractAllResultsForTheSelectedSession(request.selectors);
 
             chrome.runtime.sendMessage({
                 "message": "collect-results-data_RESPONSE",

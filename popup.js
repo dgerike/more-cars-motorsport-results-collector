@@ -6,6 +6,26 @@ let racingSeries = [
         "name": "DTM",
         "more_cars_id": 661,
         "source": "https://www.dtm.com/",
+        "selectors": {
+            "table_selector": "div.results__content.view table:last-child",
+            "row_selector": "tbody tr",
+            "position": "td:nth-child(1)",
+            "position_childnode": 0,
+            "driver_name": "td:nth-child(4)",
+            "driver_name_childnode": 1,
+            "driver_first_name": "td:nth-child(4)",
+            "driver_first_name_childnode": 0,
+            "team_name": "td:nth-child(4)",
+            "team_name_childnode": 3,
+            "race_time": "td:nth-child(7)",
+            "race_time_childnode": 0,
+            "fastest_lap": "td:nth-child(8)",
+            "fastest_lap_childnode": 0,
+            "points": "td:nth-child(10)",
+            "points_childnode": 0,
+            "status": "td:nth-child(7)",
+            "status_childnode": 0
+        }
     }
 ]
 
@@ -29,6 +49,7 @@ window.onload = function () {
                 const activeTab = tabs[0];
                 chrome.tabs.sendMessage(activeTab.id, {
                     "message": "collect-results-data_REQUEST",
+                    "selectors": racingSeries[0].selectors
                 });
             });
 
@@ -184,7 +205,7 @@ function updateProgress(steps) {
     currentStep = currentStep + steps
     progress = stepSize * currentStep
     $('#uploadProgress').css('width', progress + '%')
-    if(totalSteps === currentStep) {
+    if (totalSteps === currentStep) {
         $('#uploadProgress').text('Upload completed')
         $('#uploadProgress').removeClass('progress-bar-animated')
     }
