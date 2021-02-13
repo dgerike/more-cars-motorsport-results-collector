@@ -26,6 +26,30 @@ let racingSeries = [
             "status": "td:nth-child(7)",
             "status_childnode": 0
         }
+    }, {
+        "name": "Formula 1",
+        "more_cars_id": 310,
+        "source": "https://www.formula1.com/",
+        "selectors": {
+            "table_selector": "table",
+            "row_selector": "tbody tr",
+            "position": "td:nth-child(2)",
+            "position_childnode": 0,
+            "driver_name": "td:nth-child(4) span:nth-child(2)",
+            "driver_name_childnode": 0,
+            "driver_first_name": "td:nth-child(4) span:first-child",
+            "driver_first_name_childnode": 0,
+            "team_name": "td:nth-child(5)",
+            "team_name_childnode": 0,
+            "race_time": "td:nth-child(7)",
+            "race_time_childnode": 0,
+            "fastest_lap": null,
+            "fastest_lap_childnode": 0,
+            "points": "td:nth-child(8)",
+            "points_childnode": 0,
+            "status": "td:nth-child(7)",
+            "status_childnode": 0
+        }
     }
 ]
 
@@ -37,6 +61,12 @@ function isSupportedRacingSeries(currentUrl) {
     })
 }
 
+function getRacingSeriesByUrl(currentUrl) {
+    for (let i = 0; i < racingSeries.length; i++) {
+        if (currentUrl.includes(racingSeries[i].source)) return racingSeries[i]
+    }
+}
+
 window.onload = function () {
     chrome.tabs.query({
         active: true,
@@ -45,11 +75,13 @@ window.onload = function () {
         const currentUrl = tabs[0].url;
 
         if (isSupportedRacingSeries(currentUrl)) {
+            const currentRacingSeries = getRacingSeriesByUrl(currentUrl)
+
             chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
                 const activeTab = tabs[0];
                 chrome.tabs.sendMessage(activeTab.id, {
                     "message": "collect-results-data_REQUEST",
-                    "selectors": racingSeries[0].selectors
+                    "selectors": currentRacingSeries.selectors
                 });
             });
 

@@ -6,12 +6,14 @@
   "permissions": [
     "storage",
     "https://www.dtm.com/*",
+    "https://www.formula1.com/*",
     "https://more-cars.net/api/v1/*"
   ],
   "content_scripts": [
     {
       "matches": [
         "https://www.dtm.com/*",
+        "https://www.formula1.com/*",
         "https://more-cars.net/api/v1/*"
       ],
       "js": [

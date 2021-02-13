@@ -1,4 +1,7 @@
 function detectSessionType() {
+    return 'race' // TODO temporary restriction
+
+
     let pointsColumn = document.querySelector('div.results__content.view th:nth-child(10)')
     let lapsColumn = document.querySelector('div.results__content.view th:nth-child(9)')
 
@@ -14,6 +17,10 @@ function detectSessionType() {
 }
 
 function extractDataPoint(baseSelector, fieldName, selectors) {
+    if (!selectors[fieldName]) {
+        return null
+    }
+
     return document
         .querySelector(baseSelector + ' ' + selectors[fieldName])
         .childNodes[selectors[fieldName + '_childnode']].textContent.trim()
