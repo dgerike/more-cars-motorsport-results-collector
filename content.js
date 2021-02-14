@@ -31,7 +31,12 @@ function extractResultsForPosition(pos, selectors) {
 
     const baseSelector = selectors.table_selector + ' ' + selectors.row_selector + ':nth-child(' + pos + ')'
 
-    const position = extractDataPoint(baseSelector, 'position', selectors)
+    let position = extractDataPoint(baseSelector, 'position', selectors) // e.g. "1", "17", "NC", "-"
+    position = parseInt(position)
+    if (!position) {
+        position = pos
+    }
+
     const driverName = extractDataPoint(baseSelector, 'driver_name', selectors)
     const driverFirstName = extractDataPoint(baseSelector, 'driver_first_name', selectors)
     const teamName = extractDataPoint(baseSelector, 'team_name', selectors)
@@ -55,7 +60,7 @@ function extractResultsForPosition(pos, selectors) {
     }
 
     return {
-        "position": parseInt(position),
+        "position": position,
         "driver_name": (driverFirstName + ' ' + driverName).trim(),
         "team_name": teamName,
         "race_time": raceTime,
