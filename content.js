@@ -28,8 +28,12 @@ function extractDataPoint(baseSelector, fieldName, selectors) {
 
 function extractResultsForPosition(pos, selectors) {
     let sessionType = detectSessionType()
+    let nthChild = pos
+    if (selectors.skip_rows) {
+        nthChild = 2 * (parseInt(selectors.skip_rows) + pos - 1) - 1
+    }
 
-    const baseSelector = selectors.table_selector + ' ' + selectors.row_selector + ':nth-child(' + pos + ')'
+    const baseSelector = selectors.table_selector + ' ' + selectors.row_selector + ':nth-child(' + nthChild + ')'
 
     let position = extractDataPoint(baseSelector, 'position', selectors) // e.g. "1", "17", "NC", "-"
     position = parseInt(position)
