@@ -21,6 +21,10 @@ function extractDataPoint(baseSelector, fieldName, selectors) {
         return null
     }
 
+    if (!document.querySelector(baseSelector + ' ' + selectors[fieldName])) {
+        return null
+    }
+
     return document
         .querySelector(baseSelector + ' ' + selectors[fieldName])
         .childNodes[selectors[fieldName + '_childnode']].textContent.trim()
