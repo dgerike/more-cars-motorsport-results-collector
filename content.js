@@ -1,19 +1,14 @@
-function detectSessionType() {
-    return 'race' // TODO temporary restriction
-
-
-    let pointsColumn = document.querySelector('div.results__content.view th:nth-child(10)')
-    let lapsColumn = document.querySelector('div.results__content.view th:nth-child(9)')
-
-    if (pointsColumn && pointsColumn.textContent === 'Punkte') {
-        return 'race'
+function detectSessionType(selectors) {
+    for (let i = 0; i < selectors.length; i++) {
+        let indicatorElement = document.querySelector(selectors[i].session_type_indicator)
+        if (indicatorElement) {
+            if (indicatorElement.textContent === selectors[i].session_type_indicator_value) {
+                return i
+            }
+        }
     }
 
-    if (lapsColumn && lapsColumn.textContent === 'runden') {
-        return 'practice'
-    }
-
-    return 'qualifying'
+    return null
 }
 
 function extractDataPoint(baseSelector, fieldName, selectors) {
@@ -30,18 +25,20 @@ function extractDataPoint(baseSelector, fieldName, selectors) {
         childNode = selectors[fieldName + '_childnode']
     }
 
+    if (!document.querySelector(baseSelector + ' ' + selectors[fieldName]).childNodes[childNode]) {
+        return null
+    }
+
     return document
         .querySelector(baseSelector + ' ' + selectors[fieldName])
         .childNodes[childNode].textContent.trim()
 }
 
 function extractResultsForPosition(pos, selectors) {
-    let sessionType = detectSessionType()
     let nthChild = pos
     if (selectors.skip_rows) {
         nthChild = 2 * (parseInt(selectors.skip_rows) + pos - 1) - 1
     }
-
     const baseSelector = selectors.table_selector + ' ' + selectors.row_selector + ':nth-child(' + nthChild + ')'
 
     let position = extractDataPoint(baseSelector, 'position', selectors) // e.g. "1", "17", "NC", "-"
@@ -53,34 +50,21 @@ function extractResultsForPosition(pos, selectors) {
     const driverName = extractDataPoint(baseSelector, 'driver_name', selectors)
     const driverFirstName = extractDataPoint(baseSelector, 'driver_first_name', selectors)
     const teamName = extractDataPoint(baseSelector, 'team_name', selectors)
-
-    let raceTime = null
-    let fastestLap = null
-    let points = null
-    let laps = null
-    let status = null
-
-    if (sessionType === 'race') {
-        raceTime = extractDataPoint(baseSelector, 'race_time', selectors)
-        fastestLap = extractDataPoint(baseSelector, 'fastest_lap', selectors)
-        points = extractDataPoint(baseSelector, 'points', selectors)
-        status = extractDataPoint(baseSelector, 'status', selectors)
-    } else if (sessionType === 'practice') {
-        fastestLap = document.querySelector(baseSelector + ' td:nth-child(7)').textContent;
-        laps = document.querySelector(baseSelector + ' td:nth-child(9)').textContent;
-    } else {
-        fastestLap = document.querySelector(baseSelector + ' td:nth-child(7)').textContent;
-    }
+    const raceTime = extractDataPoint(baseSelector, 'race_time', selectors)
+    const fastestLap = extractDataPoint(baseSelector, 'fastest_lap', selectors)
+    const laps = extractDataPoint(baseSelector, 'laps', selectors)
+    const status = extractDataPoint(baseSelector, 'status', selectors)
+    const points = extractDataPoint(baseSelector, 'points', selectors)
 
     return {
-        "position": position,
+        "position": position ? position : parseInt(position),
         "driver_name": (driverFirstName + ' ' + driverName).trim(),
         "team_name": teamName,
         "race_time": raceTime,
         "fastest_lap_time": fastestLap,
-        "laps": parseInt(laps),
+        "laps": laps ? laps : parseInt(laps),
         "status": status,
-        "points": parseInt(points),
+        "points": points ? points : parseInt(points),
     }
 }
 
@@ -125,43 +109,44 @@ function convertStatus(status) {
 }
 
 function extractAllResultsForTheSelectedSession(selectors) {
-    const results = [];
+    const results = []
+    let sessionType = detectSessionType(selectors)
 
-    let resultsCount = document.querySelectorAll(selectors.table_selector + ' ' + selectors.row_selector).length
+    let resultsCount = document.querySelectorAll(selectors[sessionType].table_selector + ' ' + selectors[sessionType].row_selector).length
     for (let i = 1; i <= resultsCount; i++) {
-        let result = extractResultsForPosition(i, selectors);
+        let result = extractResultsForPosition(i, selectors[sessionType])
 
         if (result.race_time) {
             if (i === 1) {
-                result.race_time = convertRaceTime(result.race_time);
+                result.race_time = convertRaceTime(result.race_time)
             } else {
-                result.race_time = convertRaceTime(result.race_time, results[0].race_time);
+                result.race_time = convertRaceTime(result.race_time, results[0].race_time)
             }
         }
 
         if (result.fastest_lap_time) {
-            result.fastest_lap_time = convertRaceTime(result.fastest_lap_time);
+            result.fastest_lap_time = convertRaceTime(result.fastest_lap_time)
         }
 
         if (result.status) {
-            result.status = convertStatus(result.status);
+            result.status = convertStatus(result.status)
         }
 
         results.push(result)
     }
 
-    return results;
+    return results
 }
 
 chrome.runtime.onMessage.addListener(
     function (request) {
         if (request.message === "collect-results-data_REQUEST") {
-            const results = extractAllResultsForTheSelectedSession(request.selectors);
+            const results = extractAllResultsForTheSelectedSession(request.selectors)
 
             chrome.runtime.sendMessage({
                 "message": "collect-results-data_RESPONSE",
                 "results": results,
-            });
+            })
         }
     }
 );
