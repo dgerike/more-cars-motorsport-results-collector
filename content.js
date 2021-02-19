@@ -25,9 +25,14 @@ function extractDataPoint(baseSelector, fieldName, selectors) {
         return null
     }
 
+    let childNode = 0
+    if (selectors[fieldName + '_childnode']) {
+        childNode = selectors[fieldName + '_childnode']
+    }
+
     return document
         .querySelector(baseSelector + ' ' + selectors[fieldName])
-        .childNodes[selectors[fieldName + '_childnode']].textContent.trim()
+        .childNodes[childNode].textContent.trim()
 }
 
 function extractResultsForPosition(pos, selectors) {
