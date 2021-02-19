@@ -50,6 +50,31 @@ let racingSeries = [
             "status": "td:nth-child(7)",
             "status_childnode": 0
         }
+    }, {
+        "name": "Formula E",
+        "more_cars_id": 18311,
+        "source": "https://www.fiaformulae.com/",
+        "selectors": {
+            "table_selector": "table",
+            "row_selector": "tbody tr.table__row",
+            "skip_rows": 1,
+            "position": "td:nth-child(2)",
+            "position_childnode": 0,
+            "driver_name": "td:nth-child(3) .driver__lname .full",
+            "driver_name_childnode": 0,
+            "driver_first_name": "td:nth-child(3) .driver__fname",
+            "driver_first_name_childnode": 0,
+            "team_name": "td:nth-child(4)",
+            "team_name_childnode": 0,
+            "race_time": "td:nth-child(7)",
+            "race_time_childnode": 0,
+            "fastest_lap": "td:nth-child(6)",
+            "fastest_lap_childnode": 0,
+            "points": "td:nth-child(8)",
+            "points_childnode": 0,
+            "status": "td:nth-child(7) .stat-indicator",
+            "status_childnode": 0
+        }
     }
 ]
 
