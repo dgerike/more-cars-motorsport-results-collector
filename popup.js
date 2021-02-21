@@ -104,7 +104,7 @@ let racingSeries = [{
     "source": "https://www.fiaformulae.com/",
     "selectors": [{
         "session_type": "race",
-        "session_type_indicator": "nav ul li:nth-child(5)",
+        "session_type_indicator": "nav ul li:nth-child(5) button.active",
         "session_type_indicator_value": "E-Prix",
         "table_selector": "table",
         "row_selector": "tbody tr.table__row",
@@ -120,7 +120,7 @@ let racingSeries = [{
         "status": "td:nth-child(7) .stat-indicator",
     }, {
         "session_type": "qualifying",
-        "session_type_indicator": "nav ul li:nth-child(3)",
+        "session_type_indicator": "nav ul li:nth-child(3) button.active",
         "session_type_indicator_value": "Qualification",
         "table_selector": "table",
         "row_selector": "tbody tr.table__row",
