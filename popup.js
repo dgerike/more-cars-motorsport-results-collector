@@ -80,6 +80,9 @@ let racingSeries = [{
         "driver_name": "td:nth-child(4) span:nth-child(2)",
         "driver_first_name": "td:nth-child(4) span:first-child",
         "team_name": "td:nth-child(5)",
+        "fastest_lap": "td:nth-child(8)",
+        "fastest_lap_fallback_1": "td:nth-child(7)",
+        "fastest_lap_fallback_2": "td:nth-child(6)",
         "laps": "td:nth-child(9)",
     }, {
         "session_type": "practice",

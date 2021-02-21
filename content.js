@@ -68,7 +68,15 @@ function extractResultsForPosition(pos, selectors) {
     const driverFirstName = extractDataPoint(baseSelector, 'driver_first_name', selectors)
     const teamName = extractDataPoint(baseSelector, 'team_name', selectors)
     const raceTime = extractDataPoint(baseSelector, 'race_time', selectors)
-    const fastestLap = extractDataPoint(baseSelector, 'fastest_lap', selectors)
+
+    let fastestLap = extractDataPoint(baseSelector, 'fastest_lap', selectors)
+    if (!fastestLap) {
+        fastestLap = extractDataPoint(baseSelector, 'fastest_lap_fallback_1', selectors)
+    }
+    if (!fastestLap) {
+        fastestLap = extractDataPoint(baseSelector, 'fastest_lap_fallback_2', selectors)
+    }
+
     const laps = extractDataPoint(baseSelector, 'laps', selectors)
     const status = extractDataPoint(baseSelector, 'status', selectors)
     const points = extractDataPoint(baseSelector, 'points', selectors)
