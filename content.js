@@ -118,7 +118,7 @@ function normalizeDuration(duration) {
 function convertRaceTime(raceTime, winnerRaceTime) {
     let normalizedRaceTime = normalizeDuration(raceTime)
 
-    if (raceTime.match(/\+/g)) { // "+10.199", "+1:15.953"
+    if (normalizedRaceTime && raceTime.match(/^\+/)) { // "+10.199", "+1:15.953"
         normalizedRaceTime = moment.duration(winnerRaceTime).add(normalizedRaceTime)
     }
 
