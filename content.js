@@ -29,11 +29,21 @@ function extractDataPoint(baseSelector, fieldName, selectors) {
         return null
     }
 
-    return document
+    let datapoint = document
         .querySelector(baseSelector + ' ' + selectors[fieldName])
         .childNodes[childNode]
         .textContent
         .trim()
+
+    if (selectors[fieldName + '_suffix']) {
+        let suffixElement = document.querySelector(baseSelector + ' ' + selectors[fieldName + '_suffix'])
+        if (suffixElement) {
+            suffix = suffixElement.textContent
+            datapoint = datapoint + suffix
+        }
+    }
+
+    return datapoint
 }
 
 function extractResultsForPosition(pos, selectors) {

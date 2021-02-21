@@ -65,7 +65,7 @@ let racingSeries = [{
         "driver_first_name": "td:nth-child(4) span:first-child",
         "team_name": "td:nth-child(5)",
         "race_time": "td:nth-child(7)",
-        "fastest_lap": null,
+        "race_time_suffix": "td:nth-child(7) .suffix",
         "points": "td:nth-child(8)",
         "status": "td:nth-child(7)",
     }, {
@@ -79,7 +79,6 @@ let racingSeries = [{
         "driver_name": "td:nth-child(4) span:nth-child(2)",
         "driver_first_name": "td:nth-child(4) span:first-child",
         "team_name": "td:nth-child(5)",
-        "fastest_lap": null,
     }, {
         "session_type": "practice",
         "session_type_indicator": "table thead tr th:nth-child(8)",
