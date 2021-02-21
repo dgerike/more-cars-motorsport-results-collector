@@ -91,11 +91,20 @@ function normalizeDuration(duration) {
         return null
     }
 
-    if (duration.match(/.*[a-zA-Z].*/g)) {
+    if (duration.match(/^[a-z ]+/i)) { // "DNF", "DSQ"
         return null
     }
 
-    duration = duration.replace('+', '') // "+10.199"
+    if (duration.match(/lap/i)) { // "+1 Lap", "3 laps"
+        return null
+    }
+
+    if (duration.match(/\d+L/i)) { // "1L", "5L"
+        return null
+    }
+
+    duration = duration.replace('+', '') // "+10.199s"
+    duration = duration.replace('s', '') // "10.199s"
 
     if ((duration.match(/:/g) || []).length === 0) { // "53.027"
         duration = '0:0:' + duration
