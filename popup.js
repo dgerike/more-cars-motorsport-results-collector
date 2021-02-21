@@ -68,6 +68,7 @@ let racingSeries = [{
         "race_time_suffix": "td:nth-child(7) .suffix",
         "points": "td:nth-child(8)",
         "status": "td:nth-child(7)",
+        "laps": "td:nth-child(6)",
     }, {
         "session_type": "qualifying",
         "session_type_indicator": "table thead tr th:nth-child(9)",
@@ -79,6 +80,7 @@ let racingSeries = [{
         "driver_name": "td:nth-child(4) span:nth-child(2)",
         "driver_first_name": "td:nth-child(4) span:first-child",
         "team_name": "td:nth-child(5)",
+        "laps": "td:nth-child(9)",
     }, {
         "session_type": "practice",
         "session_type_indicator": "table thead tr th:nth-child(8)",
@@ -201,6 +203,7 @@ function renderList(results) {
             '<span class="badge badge-danger float-right">' + result.points + ' points' + '</span>' +
             '<br>' +
             'Total time: ' + result.race_time +
+            ' | Laps: ' + result.laps +
             ' <small class="float-right">Fastest lap: ' + result.fastest_lap_time + '</small>' +
             '</li>';
     });
