@@ -111,6 +111,7 @@ function normalizeDuration(duration) {
         return null
     }
 
+    duration = duration.replace(' ', '') // "+ 10.199s"
     duration = duration.replace('+', '') // "+10.199s"
     duration = duration.replace('s', '') // "10.199s"
 
