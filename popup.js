@@ -114,9 +114,9 @@ let racingSeries = [{
         "driver_name": "td:nth-child(3) .driver__lname .full",
         "driver_first_name": "td:nth-child(3) .driver__fname",
         "team_name": "td:nth-child(4) div span",
-        "race_time": "td:nth-child(7)",
-        "fastest_lap": "td:nth-child(6)",
-        "points": "td:nth-child(8)",
+        "race_time": "td:nth-child(7) .stat__value",
+        "fastest_lap": "td:nth-child(6) .stat__value",
+        "points": "td:nth-child(8) .points",
         "status": "td:nth-child(7) .stat-indicator",
     }, {
         "session_type": "qualifying",
