@@ -130,8 +130,7 @@ let racingSeries = [{
         "driver_name": "td:nth-child(3) .driver__lname .full",
         "driver_first_name": "td:nth-child(3) .driver__fname",
         "team_name": "td:nth-child(4) div span",
-        "race_time": "td:nth-child(7)",
-        "fastest_lap": "td:nth-child(6)",
+        "fastest_lap": "td:nth-child(7) .stat__value",
     }, {
         "session_type": "practice",
         "session_type_indicator": "table thead tr th:nth-child(8) span:last-child",
@@ -144,8 +143,7 @@ let racingSeries = [{
         "driver_name": "td:nth-child(3) .driver__lname .full",
         "driver_first_name": "td:nth-child(3) .driver__fname",
         "team_name": "td:nth-child(4) div span",
-        "race_time": "td:nth-child(7)",
-        "fastest_lap": "td:nth-child(6)",
+        "fastest_lap": "td:nth-child(7) .stat__value",
     }]
 }]
 
