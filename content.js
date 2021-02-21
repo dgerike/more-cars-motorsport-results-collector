@@ -31,7 +31,9 @@ function extractDataPoint(baseSelector, fieldName, selectors) {
 
     return document
         .querySelector(baseSelector + ' ' + selectors[fieldName])
-        .childNodes[childNode].textContent.trim()
+        .childNodes[childNode]
+        .textContent
+        .trim()
 }
 
 function extractResultsForPosition(pos, selectors) {
@@ -47,6 +49,11 @@ function extractResultsForPosition(pos, selectors) {
         position = pos
     }
 
+    let startNumber = extractDataPoint(baseSelector, 'start_number', selectors)
+    if (startNumber) {
+        startNumber = startNumber.replace('#', '')
+    }
+
     const driverName = extractDataPoint(baseSelector, 'driver_name', selectors)
     const driverFirstName = extractDataPoint(baseSelector, 'driver_first_name', selectors)
     const teamName = extractDataPoint(baseSelector, 'team_name', selectors)
@@ -58,6 +65,7 @@ function extractResultsForPosition(pos, selectors) {
 
     return {
         "position": position ? position : parseInt(position),
+        "start_number": startNumber,
         "driver_name": (driverFirstName + ' ' + driverName).trim(),
         "team_name": teamName,
         "race_time": raceTime,

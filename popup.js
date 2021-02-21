@@ -60,6 +60,7 @@ let racingSeries = [{
         "table_selector": "table",
         "row_selector": "tbody tr",
         "position": "td:nth-child(2)",
+        "start_number": "td:nth-child(3)",
         "driver_name": "td:nth-child(4) span:nth-child(2)",
         "driver_first_name": "td:nth-child(4) span:first-child",
         "team_name": "td:nth-child(5)",
@@ -74,6 +75,7 @@ let racingSeries = [{
         "table_selector": "table",
         "row_selector": "tbody tr",
         "position": "td:nth-child(2)",
+        "start_number": "td:nth-child(3)",
         "driver_name": "td:nth-child(4) span:nth-child(2)",
         "driver_first_name": "td:nth-child(4) span:first-child",
         "team_name": "td:nth-child(5)",
@@ -85,6 +87,7 @@ let racingSeries = [{
         "table_selector": "table",
         "row_selector": "tbody tr",
         "position": "td:nth-child(2)",
+        "start_number": "td:nth-child(3)",
         "driver_name": "td:nth-child(4) span:nth-child(2)",
         "driver_first_name": "td:nth-child(4) span:first-child",
         "team_name": "td:nth-child(5)",
@@ -103,6 +106,7 @@ let racingSeries = [{
         "row_selector": "tbody tr.table__row",
         "skip_rows": 1,
         "position": "td:nth-child(2)",
+        "start_number": "td:nth-child(3) .driver__number",
         "driver_name": "td:nth-child(3) .driver__lname .full",
         "driver_first_name": "td:nth-child(3) .driver__fname",
         "team_name": "td:nth-child(4) div span",
@@ -118,6 +122,7 @@ let racingSeries = [{
         "row_selector": "tbody tr.table__row",
         "skip_rows": 1,
         "position": "td:nth-child(2)",
+        "start_number": "td:nth-child(3) .driver__number",
         "driver_name": "td:nth-child(3) .driver__lname .full",
         "driver_first_name": "td:nth-child(3) .driver__fname",
         "team_name": "td:nth-child(4) div span",
@@ -131,6 +136,7 @@ let racingSeries = [{
         "row_selector": "tbody tr.table__row",
         "skip_rows": 1,
         "position": "td:nth-child(2)",
+        "start_number": "td:nth-child(3) .driver__number",
         "driver_name": "td:nth-child(3) .driver__lname .full",
         "driver_first_name": "td:nth-child(3) .driver__fname",
         "team_name": "td:nth-child(4) div span",
@@ -190,6 +196,7 @@ function renderList(results) {
             '<li class="list-group-item">' +
             '<b>' + result.position +
             '. ' + result.driver_name +
+            ' #' + result.start_number +
             ' <small>' + result.team_name + '</small>' +
             '</b>' +
             '<span class="badge badge-danger float-right">' + result.points + ' points' + '</span>' +
