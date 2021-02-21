@@ -161,7 +161,11 @@ function extractAllResultsForTheSelectedSession(selectors) {
         }
 
         if (result.fastest_lap_time) {
-            result.fastest_lap_time = convertRaceTime(result.fastest_lap_time)
+            if (result.fastest_lap_time.includes('+')) {
+                result.fastest_lap_time = convertRaceTime(result.fastest_lap_time, results[0].fastest_lap_time)
+            } else {
+                result.fastest_lap_time = convertRaceTime(result.fastest_lap_time)
+            }
         }
 
         if (result.status) {
