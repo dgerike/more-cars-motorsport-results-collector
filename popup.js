@@ -298,7 +298,8 @@ function renderSessionsList(sessions) {
 $('#racingEventSessionsList').change(function () {
     let value = $(this).val();
     fetchRaceResultsFromMoreCars(value);
-    $('#addResults').prop('disabled', false);
+    $('#addResults').prop('disabled', false)
+    $('#errorBox').addClass('d-none')
 });
 
 function fetchRaceResultsFromMoreCars(sessionId) {
