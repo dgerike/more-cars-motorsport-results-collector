@@ -359,6 +359,7 @@ function isUploadDataValid(results) {
     if (!results || results.length === 0) {
         $('#errorBox').text('No race results found. Cannot proceed.')
         $('#errorBox').removeClass('d-none')
+        $('#addResults').prop('disabled', true)
 
         return false
     }
@@ -366,11 +367,13 @@ function isUploadDataValid(results) {
     if (parseInt($('#raceResultCount').text()) > 0) {
         $('#errorBox').text('For this racing event session there are already race results attached. Cannot proceed.')
         $('#errorBox').removeClass('d-none')
+        $('#addResults').prop('disabled', true)
 
         return false
     }
 
-    $('#errorBox').addClass('d-none')
+    $('#errorBox').addClass('d-none') // remove error messages
+    $('#addResults').prop('disabled', false) // enable submit button
 
     return true
 }
@@ -380,6 +383,8 @@ function addResults(results) {
         return false
     }
 
+    $('#addResults').prop('disabled', true)
+    $('#uploadProgress').removeClass('d-none')
     initializeProgressBar(results.length * 4)
 
     results.forEach(result => {
