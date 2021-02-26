@@ -354,7 +354,24 @@ function updateProgress(steps) {
     }
 }
 
+function isUploadDataValid(results) {
+    if (!results || results.length === 0) {
+        $('#errorBox').text('No race results found. Cannot proceed.')
+        $('#errorBox').removeClass('d-none')
+
+        return false
+    }
+
+    $('#errorBox').addClass('d-none')
+
+    return true
+}
+
 function addResults(results) {
+    if (!isUploadDataValid(results)) {
+        return false
+    }
+
     initializeProgressBar(results.length * 4)
 
     results.forEach(result => {
