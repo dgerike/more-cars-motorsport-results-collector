@@ -362,6 +362,13 @@ function isUploadDataValid(results) {
         return false
     }
 
+    if (parseInt($('#raceResultCount').text()) > 0) {
+        $('#errorBox').text('For this racing event session there are already race results attached. Cannot proceed.')
+        $('#errorBox').removeClass('d-none')
+
+        return false
+    }
+
     $('#errorBox').addClass('d-none')
 
     return true
