@@ -296,8 +296,23 @@ function renderSessionsList(sessions) {
 }
 
 $('#racingEventSessionsList').change(function () {
+    let value = $(this).val();
+    fetchRaceResultsFromMoreCars(value);
     $('#addResults').prop('disabled', false);
 });
+
+function fetchRaceResultsFromMoreCars(sessionId) {
+    let endpoint = '/racing-event-sessions/' + sessionId + '/race-results';
+
+    $.ajax({
+        type: 'GET',
+        url: apiBaseUrl + '/api/v1' + endpoint,
+    }).done(function (response) {
+        $('#raceResultCount').html(response.data.length);
+    }).fail(function (response, status) {
+
+    });
+}
 
 let accessTokenInput = document.getElementById('accessTokenInput');
 chrome.storage.local.get(['accessToken'], function (storage) {
