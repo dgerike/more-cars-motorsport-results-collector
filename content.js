@@ -38,7 +38,7 @@ function extractDataPoint(baseSelector, fieldName, selectors) {
     if (selectors[fieldName + '_suffix']) {
         let suffixElement = document.querySelector(baseSelector + ' ' + selectors[fieldName + '_suffix'])
         if (suffixElement) {
-            suffix = suffixElement.textContent
+            let suffix = suffixElement.textContent
             datapoint = datapoint + suffix
         }
     }
