@@ -137,6 +137,10 @@ function convertRaceTime(raceTime, winnerRaceTime) {
 function convertStatus(status) {
     const possibleStatus = ['DNF', 'DNS', 'DNC', 'DSQ']
 
+    if (status === 'X') {
+        status = 'DNC' // Formula E
+    }
+
     if (possibleStatus.includes(status)) {
         return status
     }
