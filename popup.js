@@ -396,6 +396,7 @@ function uploadResult(result) {
     let payloadResult = {
         "name": 'a',
         "position": result.position,
+        "start_number": result.start_number,
         "driver_name": result.driver_name,
         "team_name": result.team_name,
         "race_time": result.race_time,
