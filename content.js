@@ -170,6 +170,8 @@ function extractAllResultsForTheSelectedSession(selectors) {
 
         if (result.status) {
             result.status = convertStatus(result.status)
+        } else {
+            result.status = 'Finished'
         }
 
         results.push(result)
