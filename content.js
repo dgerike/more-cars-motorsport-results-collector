@@ -82,15 +82,15 @@ function extractResultsForPosition(pos, selectors) {
     const points = extractDataPoint(baseSelector, 'points', selectors)
 
     return {
-        "position": position ? position : parseInt(position),
+        "position": position ? parseInt(position) : null,
         "start_number": startNumber,
         "driver_name": (driverFirstName + ' ' + driverName).trim(),
         "team_name": teamName,
         "race_time": raceTime,
         "fastest_lap_time": fastestLap,
-        "laps": laps ? laps : parseInt(laps),
+        "laps": laps ? parseInt(laps) : null,
         "status": status,
-        "points": points ? points : parseInt(points),
+        "points": points ? parseFloat(points) : null,
     }
 }
 
