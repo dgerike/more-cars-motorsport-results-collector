@@ -347,10 +347,10 @@ function initializeProgressBar(stepCount) {
 function updateProgress(steps) {
     currentStep = currentStep + steps
     progress = stepSize * currentStep
-    $('#uploadProgress').css('width', progress + '%')
+    $('#uploadProgress div').css('width', progress + '%')
     if (totalSteps === currentStep) {
-        $('#uploadProgress').text('Upload completed')
-        $('#uploadProgress').removeClass('progress-bar-animated')
+        $('#uploadProgress div').text('Upload completed')
+        $('#uploadProgress div').removeClass('progress-bar-animated')
     }
 }
 

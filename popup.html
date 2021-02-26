@@ -55,16 +55,16 @@
             3. Submit the data
         </div>
         <div class="card-body">
-            <button id="addResults" class="btn btn-danger" disabled>
-                Add these results to More Cars
+            <div id="uploadProgress" class="progress d-none mb-3">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"></div>
+            </div>
+
+            <button id="addResults" class="btn btn-danger mb-3" disabled>
+                Upload race results to More Cars
             </button>
-            <br>
-            <br>
 
-            <div id="errorBox" class="alert alert-danger d-none"></div>
-
-            <div class="progress">
-                <div id="uploadProgress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"></div>
+            <div id="errorBox" class="alert alert-danger">
+                Please select racing series, event and session to enable the upload button.
             </div>
 
             <hr>
