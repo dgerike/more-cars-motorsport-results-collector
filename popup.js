@@ -388,73 +388,77 @@ function addResults(results) {
     initializeProgressBar(results.length * 4)
 
     results.forEach(result => {
-        let payloadResult = {
-            "name": 'a',
-            "position": result.position,
-            "driver_name": result.driver_name,
-            "team_name": result.team_name,
-            "race_time": result.race_time,
-            "laps": result.laps,
-            "status": result.status,
-            "points": result.points,
-        }
+        uploadResult(result)
+    })
+}
 
-        let payloadLapTime = {
-            "name": 'a',
-            "lap_time": result.fastest_lap_time,
-            "driver_name": result.driver_name,
-            "date": $($('#racingEventSessionsList option:selected')[0]).data('start-date'),
-        }
+function uploadResult(result) {
+    let payloadResult = {
+        "name": 'a',
+        "position": result.position,
+        "driver_name": result.driver_name,
+        "team_name": result.team_name,
+        "race_time": result.race_time,
+        "laps": result.laps,
+        "status": result.status,
+        "points": result.points,
+    }
 
-        let sessionId = $($('#racingEventSessionsList option:selected')[0]).val()
+    let payloadLapTime = {
+        "name": 'a',
+        "lap_time": result.fastest_lap_time,
+        "driver_name": result.driver_name,
+        "date": $($('#racingEventSessionsList option:selected')[0]).data('start-date'),
+    }
 
-        chrome.storage.local.get(['accessToken'], function (storage) {
-            let endpoint = 'race-results'
-            let raceResultId = null
-            $.ajax({ // post result
+    let sessionId = $($('#racingEventSessionsList option:selected')[0]).val()
+
+    chrome.storage.local.get(['accessToken'], function (storage) {
+        let endpoint = 'race-results'
+        let raceResultId = null
+        $.ajax({ // post result
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            url: apiBaseUrl + '/api/v1/' + endpoint,
+            headers: {
+                'access-token': storage.accessToken
+            },
+            data: JSON.stringify(payloadResult)
+        }).done(function (createdRaceResult) { // connect result and session
+            updateProgress(1)
+
+            raceResultId = createdRaceResult.data.id
+            let endpoint2 = 'race-results/' + raceResultId + '/racing-event-sessions/' + sessionId
+            $.ajax({
                 type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                url: apiBaseUrl + '/api/v1/' + endpoint,
+                url: apiBaseUrl + '/api/v1/' + endpoint2,
                 headers: {
                     'access-token': storage.accessToken
-                },
-                data: JSON.stringify(payloadResult)
-            }).done(function (createdRaceResult) { // connect result and session
+                }
+            }).done(function () { // post lap time
                 updateProgress(1)
 
-                raceResultId = createdRaceResult.data.id
-                let endpoint2 = 'race-results/' + raceResultId + '/racing-event-sessions/' + sessionId
+                let endpoint3 = 'lap-times'
                 $.ajax({
                     type: 'POST',
-                    url: apiBaseUrl + '/api/v1/' + endpoint2,
+                    contentType: 'application/json; charset=utf-8',
+                    url: apiBaseUrl + '/api/v1/' + endpoint3,
                     headers: {
                         'access-token': storage.accessToken
-                    }
-                }).done(function () { // post lap time
+                    },
+                    data: JSON.stringify(payloadLapTime)
+                }).done(function (createdLapTime) { // connect lap time and result
                     updateProgress(1)
 
-                    let endpoint3 = 'lap-times'
+                    let endpoint4 = 'lap-times/' + createdLapTime.data.id + '/race-results/' + raceResultId
                     $.ajax({
                         type: 'POST',
-                        contentType: 'application/json; charset=utf-8',
-                        url: apiBaseUrl + '/api/v1/' + endpoint3,
+                        url: apiBaseUrl + '/api/v1/' + endpoint4,
                         headers: {
                             'access-token': storage.accessToken
-                        },
-                        data: JSON.stringify(payloadLapTime)
-                    }).done(function (createdLapTime) { // connect lap time and result
+                        }
+                    }).done(function () {
                         updateProgress(1)
-
-                        let endpoint4 = 'lap-times/' + createdLapTime.data.id + '/race-results/' + raceResultId
-                        $.ajax({
-                            type: 'POST',
-                            url: apiBaseUrl + '/api/v1/' + endpoint4,
-                            headers: {
-                                'access-token': storage.accessToken
-                            }
-                        }).done(function () {
-                            updateProgress(1)
-                        })
                     })
                 })
             })
