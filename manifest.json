@@ -8,6 +8,7 @@
     "https://www.dtm.com/*",
     "https://www.formula1.com/*",
     "https://www.fiaformulae.com/*",
+    "https://fiaresultsandstatistics.motorsportstats.com/*",
     "https://more-cars.net/api/v1/*"
   ],
   "content_scripts": [
@@ -16,6 +17,7 @@
         "https://www.dtm.com/*",
         "https://www.formula1.com/*",
         "https://www.fiaformulae.com/*",
+        "https://fiaresultsandstatistics.motorsportstats.com/*",
         "https://more-cars.net/api/v1/*"
       ],
       "js": [

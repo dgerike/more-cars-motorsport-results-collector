@@ -193,6 +193,35 @@ let racingSeries = [{
         "team_name": "td:nth-child(4) div span",
         "fastest_lap": "td:nth-child(7) .stat__value",
     }]
+}, {
+    "name": "WTCR",
+    "more_cars_id": 221292,
+    "source": "https://fiaresultsandstatistics.motorsportstats.com/",
+    "selectors": [{
+        "session_type": "race",
+        "session_type_indicator": "table tbody:first-of-type tr td:nth-child(11) div:not(:empty)",
+        "table_selector": "table",
+        "row_selector": "tbody",
+        "position": "tr td:nth-child(1)",
+        "start_number": "tr td:nth-child(2)",
+        "driver_name": "tr td:nth-child(3)",
+        "team_name": "tr td:nth-child(5)",
+        "race_time": "tr td:nth-child(7)",
+        "fastest_lap": "tr td:nth-child(11)",
+        "status": "tr td:nth-child(1)",
+        "laps": "tr td:nth-child(6)",
+    }, {
+        "session_type": "training|qualifying",
+        "session_type_indicator": "table tbody:first-of-type tr td:nth-child(11) div:empty",
+        "table_selector": "table",
+        "row_selector": "tbody",
+        "position": "tr td:nth-child(1)",
+        "start_number": "tr td:nth-child(2)",
+        "driver_name": "tr td:nth-child(3)",
+        "team_name": "tr td:nth-child(5)",
+        "fastest_lap": "tr td:nth-child(7)",
+        "status": "tr td:nth-child(1)",
+    }]
 }]
 
 renderRacingSeriesList(racingSeries)
