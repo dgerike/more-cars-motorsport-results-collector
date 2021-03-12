@@ -67,6 +67,11 @@ function extractResultsForPosition(pos, selectors) {
 
     const driverName = extractDataPoint(baseSelector, 'driver_name', selectors)
     const driverFirstName = extractDataPoint(baseSelector, 'driver_first_name', selectors)
+    let driverFullName = driverName
+    if (driverFirstName) {
+        driverFullName = driverFirstName + ' ' + driverName
+    }
+
     const teamName = extractDataPoint(baseSelector, 'team_name', selectors)
     const raceTime = extractDataPoint(baseSelector, 'race_time', selectors)
 
@@ -85,7 +90,7 @@ function extractResultsForPosition(pos, selectors) {
     return {
         "position": position ? parseInt(position) : null,
         "start_number": startNumber,
-        "driver_name": (driverFirstName + ' ' + driverName).trim(),
+        "driver_name": driverFullName,
         "team_name": teamName,
         "race_time": raceTime,
         "fastest_lap_time": fastestLap,
