@@ -52,7 +52,7 @@ function extractResultsForPosition(pos, selectors) {
     if (selectors.skip_rows) {
         nthChild = 2 * (parseInt(selectors.skip_rows) + pos - 1) - 1
     }
-    const baseSelector = selectors.table_selector + ' ' + selectors.row_selector + ':nth-child(' + nthChild + ')'
+    const baseSelector = selectors.table_selector + ' ' + selectors.row_selector + ':nth-of-type(' + nthChild + ')'
 
     let position = extractDataPoint(baseSelector, 'position', selectors) // e.g. "1", "17", "NC", "-"
     position = parseInt(position)
