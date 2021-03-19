@@ -221,6 +221,7 @@ let racingSeries = [{
         "team_name": "tr td:nth-child(5)",
         "fastest_lap": "tr td:nth-child(7)",
         "status": "tr td:nth-child(1)",
+        "laps": "tr td:nth-child(6)",
     }]
 }]
 
