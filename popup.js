@@ -152,7 +152,7 @@ let racingSeries = [{
     "source": "https://www.fiaformulae.com/",
     "selectors": [{
         "session_type": "race",
-        "session_type_indicator": "nav ul li:nth-child(5) button.active",
+        "session_type_indicator": ".standings-intro__title",
         "session_type_indicator_value": "E-Prix",
         "table_selector": "table",
         "row_selector": "tbody tr.table__row",
@@ -168,7 +168,7 @@ let racingSeries = [{
         "status": "td:nth-child(7) .stat-indicator",
     }, {
         "session_type": "qualifying",
-        "session_type_indicator": "nav ul li:nth-child(3) button.active",
+        "session_type_indicator": ".standings-intro__title",
         "session_type_indicator_value": "Qualification",
         "table_selector": "table",
         "row_selector": "tbody tr.table__row",
@@ -181,8 +181,8 @@ let racingSeries = [{
         "fastest_lap": "td:nth-child(7) .stat__value",
     }, {
         "session_type": "practice",
-        "session_type_indicator": "table thead tr th:nth-child(8) span:last-child",
-        "session_type_indicator_value": "Points",
+        "session_type_indicator": ".standings-intro__title",
+        "session_type_indicator_value": "Practice",
         "table_selector": "table",
         "row_selector": "tbody tr.table__row",
         "skip_rows": 1,
