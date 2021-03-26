@@ -5,6 +5,7 @@ let racingSeries = [{
     "name": "DTM Trophy",
     "more_cars_id": 222981,
     "source": "https://www.dtm.com/de/dtm-trophy/",
+    "racing_series_indicator_title": "DTM Trophy",
     "selectors": [{
         "session_type": "race",
         "session_type_indicator": "div.results__content.view table:last-child thead th:nth-child(10)",
@@ -53,6 +54,7 @@ let racingSeries = [{
     "name": "DTM",
     "more_cars_id": 661,
     "source": "https://www.dtm.com/",
+    "racing_series_indicator_title": "DTM",
     "selectors": [{
         "session_type": "race",
         "session_type_indicator": "div.results__content.view table:last-child thead th:nth-child(10)",
@@ -101,6 +103,7 @@ let racingSeries = [{
     "name": "Formula 1",
     "more_cars_id": 310,
     "source": "https://www.formula1.com/",
+    "racing_series_indicator_title": "FORMULA 1",
     "selectors": [{
         "session_type": "race",
         "session_type_indicator": "table thead tr th:nth-child(8)",
@@ -150,6 +153,7 @@ let racingSeries = [{
     "name": "Formula E",
     "more_cars_id": 18311,
     "source": "https://www.fiaformulae.com/",
+    "racing_series_indicator_title": "Formula E",
     "selectors": [{
         "session_type": "race",
         "session_type_indicator": ".standings-intro__title",
@@ -197,6 +201,7 @@ let racingSeries = [{
     "name": "WTCR",
     "more_cars_id": 221292,
     "source": "https://fiaresultsandstatistics.motorsportstats.com/",
+    "racing_series_indicator_title": "WTCR",
     "selectors": [{
         "session_type": "race",
         "session_type_indicator": "table tbody:first-of-type tr td:nth-child(11) div:not(:empty)",
@@ -227,15 +232,22 @@ let racingSeries = [{
 
 renderRacingSeriesList(racingSeries)
 
-function isSupportedRacingSeries(currentUrl) {
+function isSupportedRacingSeries(url, title) {
     return racingSeries.some(series => {
-        return currentUrl.includes(series.source)
+        const urlIsAMatch = url.includes(series.source)
+        const titleIsAMatch = title.includes(series.racing_series_indicator_title)
+
+        return urlIsAMatch && titleIsAMatch
     })
 }
 
-function getRacingSeriesByUrl(currentUrl) {
+function getRacingSeriesByUrl(url, title) {
     for (let i = 0; i < racingSeries.length; i++) {
-        if (currentUrl.includes(racingSeries[i].source)) return racingSeries[i]
+        const urlIsAMatch = url.includes(racingSeries[i].source)
+        const titleIsAMatch = title.includes(racingSeries[i].racing_series_indicator_title)
+        if (urlIsAMatch && titleIsAMatch) {
+            return racingSeries[i]
+        }
     }
 }
 
@@ -245,9 +257,10 @@ window.onload = function () {
         currentWindow: true
     }, function (tabs) {
         const currentUrl = tabs[0].url;
+        const currentTitle = tabs[0].title;
 
-        if (isSupportedRacingSeries(currentUrl)) {
-            const currentRacingSeries = getRacingSeriesByUrl(currentUrl)
+        if (isSupportedRacingSeries(currentUrl, currentTitle)) {
+            const currentRacingSeries = getRacingSeriesByUrl(currentUrl, currentTitle)
 
             chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
                 const activeTab = tabs[0];
