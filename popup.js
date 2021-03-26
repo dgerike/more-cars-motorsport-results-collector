@@ -228,6 +228,40 @@ let racingSeries = [{
         "status": "tr td:nth-child(1)",
         "laps": "tr td:nth-child(6)",
     }]
+}, {
+    "name": "WEC",
+    "more_cars_id": 136157,
+    "source": "https://fiaresultsandstatistics.motorsportstats.com/",
+    "racing_series_indicator_title": "World Endurance Championship",
+    "selectors": [{
+        "session_type": "race",
+        "session_type_indicator": "table tbody:first-of-type tr td:nth-child(11) div:not(:empty)",
+        "table_selector": "table",
+        "row_selector": "tbody",
+        "position": "tr td:nth-child(1)",
+        "start_number": "tr td:nth-child(2)",
+        "driver_name": "tr td:nth-child(4) a:nth-of-type(1)",
+        "driver_name_2": "tr td:nth-child(4) a:nth-of-type(2)",
+        "driver_name_3": "tr td:nth-child(4) a:nth-of-type(3)",
+        "driver_name_4": "tr td:nth-child(4) a:nth-of-type(4)",
+        "team_name": "tr td:nth-child(3)",
+        "race_time": "tr td:nth-child(7)",
+        "fastest_lap": "tr td:nth-child(11)",
+        "status": "tr td:nth-child(1)",
+        "laps": "tr td:nth-child(6)",
+    }, {
+        "session_type": "training|qualifying",
+        "session_type_indicator": "table tbody:first-of-type tr td:nth-child(11) div:empty",
+        "table_selector": "table",
+        "row_selector": "tbody",
+        "position": "tr td:nth-child(1)",
+        "start_number": "tr td:nth-child(2)",
+        "driver_name": "tr td:nth-child(3)",
+        "team_name": "tr td:nth-child(5)",
+        "fastest_lap": "tr td:nth-child(7)",
+        "status": "tr td:nth-child(1)",
+        "laps": "tr td:nth-child(6)",
+    }]
 }]
 
 renderRacingSeriesList(racingSeries)
