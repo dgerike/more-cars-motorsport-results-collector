@@ -71,6 +71,12 @@ function extractResultsForPosition(pos, selectors) {
     if (driverFirstName) {
         driverFullName = driverFirstName + ' ' + driverName
     }
+    const driverName2 = extractDataPoint(baseSelector, 'driver_name_2', selectors)
+    const driverName3 = extractDataPoint(baseSelector, 'driver_name_3', selectors)
+    const driverName4 = extractDataPoint(baseSelector, 'driver_name_4', selectors)
+    driverFullName = [driverFullName, driverName2, driverName3, driverName4]
+        .filter(Boolean)
+        .join(' / ')
 
     const teamName = extractDataPoint(baseSelector, 'team_name', selectors)
     const raceTime = extractDataPoint(baseSelector, 'race_time', selectors)
