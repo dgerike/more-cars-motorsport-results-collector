@@ -290,13 +290,14 @@ function renderList(results) {
             '<b>' + result.position +
             '. ' + result.driver_name +
             ' #' + result.start_number +
+            '<span class="badge badge-danger float-right">' + result.points + ' points' + '</span>' +
+            '<span class="badge badge-info mr-1 float-right">' + result.status + '</span>' +
             ' <small>' + result.team_name + '</small>' +
             '</b>' +
-            '<span class="badge badge-danger float-right">' + result.points + ' points' + '</span>' +
             '<br>' +
-            'Total time: ' + result.race_time +
-            ' | Laps: ' + result.laps +
-            ' <small class="float-right">Fastest lap: ' + result.fastest_lap_time + '</small>' +
+            ' Laps: ' + result.laps +
+            ' | Total time: ' + result.race_time +
+            ' <span class="float-right">⏱️' + result.fastest_lap_time + '</span>' +
             '</li>';
     });
 
