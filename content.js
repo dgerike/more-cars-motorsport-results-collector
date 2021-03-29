@@ -3,7 +3,7 @@ function detectSessionType(selectors) {
         let indicatorElement = document.querySelector(selectors[i].session_type_indicator)
         if (indicatorElement) {
             if (!selectors[i].session_type_indicator_value
-                || indicatorElement.textContent.startsWith(selectors[i].session_type_indicator_value)) {
+                || indicatorElement.textContent.includes(selectors[i].session_type_indicator_value)) {
                 return i
             }
         }
