@@ -2,6 +2,41 @@ let sessionResults = null
 let apiBaseUrl = 'https://more-cars.net'
 
 let racingSeries = [{
+    "name": "ADAC GT Masters",
+    "more_cars_id": 671,
+    "source": "https://www.motorsport-magazin.com/adac-gt-masters",
+    "racing_series_indicator_title": "ADAC GT Masters",
+    "selectors": [{
+        "session_type": "race",
+        "session_type_indicator": ".msm_breadcrumbs div:last-child a span",
+        "session_type_indicator_value": "Rennen",
+        "table_selector": "table:first-child",
+        "row_selector": "tbody tr",
+        "skip_first_n_rows": 1,
+        "skip_rows": 1,
+        "position": "td:nth-child(1)",
+        "start_number": "td:nth-child(3)",
+        "driver_name": "td:nth-child(4)",
+        "driver_name_2": " + tr td:nth-child(4)",
+        "team_name": "td:nth-child(5)",
+        "race_time": "td:nth-child(8)",
+        "laps": "td:nth-child(10)",
+    }, {
+        "session_type": "training|qualifying",
+        "session_type_indicator": ".msm_breadcrumbs div:last-child a span",
+        "table_selector": "table:first-child",
+        "row_selector": "tbody tr",
+        "skip_first_n_rows": 1,
+        "skip_rows": 1,
+        "position": "td:nth-child(1)",
+        "start_number": "td:nth-child(3)",
+        "driver_name": "td:nth-child(4)",
+        "driver_name_2": " + tr td:nth-child(4)",
+        "team_name": "td:nth-child(5)",
+        "fastest_lap": "td:nth-child(8)",
+        "laps": "td:nth-child(10)",
+    }]
+}, {
     "name": "DTM Trophy",
     "more_cars_id": 222981,
     "source": "https://www.dtm.com/de/dtm-trophy/",
