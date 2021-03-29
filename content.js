@@ -47,11 +47,22 @@ function extractDataPoint(baseSelector, fieldName, selectors) {
     return datapoint
 }
 
-function extractResultsForPosition(pos, selectors) {
+function getResultRowNumberForCurrentPosition(pos, selectors) {
     let nthChild = pos
+
     if (selectors.skip_rows) {
-        nthChild = 2 * (parseInt(selectors.skip_rows) + pos - 1) - 1
+        nthChild = 2 * (selectors.skip_rows + pos - 1) - 1
     }
+
+    if (selectors.skip_first_n_rows) {
+        nthChild += selectors.skip_first_n_rows
+    }
+
+    return nthChild
+}
+
+function extractResultsForPosition(pos, selectors) {
+    const nthChild = getResultRowNumberForCurrentPosition(pos, selectors)
     const baseSelector = selectors.table_selector + ' ' + selectors.row_selector + ':nth-of-type(' + nthChild + ')'
 
     let position = extractDataPoint(baseSelector, 'position', selectors) // e.g. "1", "17", "NC", "-"
@@ -165,6 +176,15 @@ function extractAllResultsForTheSelectedSession(selectors) {
     let sessionType = detectSessionType(selectors)
 
     let resultsCount = document.querySelectorAll(selectors[sessionType].table_selector + ' ' + selectors[sessionType].row_selector).length
+
+    if (selectors[sessionType].skip_first_n_rows) {
+        resultsCount -= selectors[sessionType].skip_first_n_rows
+    }
+
+    if (selectors[sessionType].skip_rows) {
+        resultsCount = Math.ceil(resultsCount / (selectors[sessionType].skip_rows + 1))
+    }
+
     for (let i = 1; i <= resultsCount; i++) {
         let result = extractResultsForPosition(i, selectors[sessionType])
 
