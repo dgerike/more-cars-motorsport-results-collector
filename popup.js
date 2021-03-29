@@ -159,7 +159,7 @@ let racingSeries = [{
         "session_type_indicator": ".standings-intro__title",
         "session_type_indicator_value": "E-Prix",
         "table_selector": "table",
-        "row_selector": "tbody tr.table__row",
+        "row_selector": "tbody tr",
         "skip_rows": 1,
         "position": "td:nth-child(2)",
         "start_number": "td:nth-child(3) .driver__number",
