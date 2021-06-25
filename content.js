@@ -164,6 +164,14 @@ function convertStatus(status) {
         status = 'DNC' // Formula E
     }
 
+    if (status === 'NC') {
+        status = 'DNC' // Formula E
+    }
+
+    if (status === 'WIT') {
+        status = 'DNF' // Formula E
+    }
+
     if (possibleStatus.includes(status)) {
         return status
     }
