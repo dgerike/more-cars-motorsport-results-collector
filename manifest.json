@@ -11,6 +11,7 @@
     "https://www.fiaformulae.com/*",
     "https://fiaresultsandstatistics.motorsportstats.com/*",
     "https://www.gt-world-challenge-europe.com/*",
+    "https://www.supercars.com/*",
     "https://more-cars.net/api/v1/*"
   ],
   "content_scripts": [
@@ -22,6 +23,7 @@
         "https://www.fiaformulae.com/*",
         "https://fiaresultsandstatistics.motorsportstats.com/*",
         "https://www.gt-world-challenge-europe.com/*",
+        "https://www.supercars.com/*",
         "https://more-cars.net/api/v1/*"
       ],
       "js": [

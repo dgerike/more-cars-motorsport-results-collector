@@ -34,6 +34,7 @@ function extractDataPoint(baseSelector, fieldName, selectors) {
         .querySelector(baseSelector + ' ' + selectors[fieldName])
         .childNodes[childNode]
         .textContent
+        .replace('›', '') // special case for V8 Supercars
         .trim()
 
     if (selectors[fieldName + '_suffix']) {
