@@ -580,6 +580,11 @@ function fetchRaceResultsFromMoreCars(sessionId) {
         url: apiBaseUrl + '/api/v1' + endpoint,
     }).done(function (response) {
         $('#raceResultCount').html(response.data.length);
+        if (response.data.length > 0) {
+            $('#errorBox').text('For this racing event session there are already race results attached. Cannot proceed.')
+            $('#errorBox').removeClass('d-none')
+            $('#addResults').prop('disabled', true)
+        }
     }).fail(function (response, status) {
 
     });
