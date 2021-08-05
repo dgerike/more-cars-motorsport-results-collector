@@ -160,6 +160,7 @@ function convertRaceTime(raceTime, winnerRaceTime) {
 }
 
 function convertStatus(status) {
+    status = status.toUpperCase();
     const possibleStatus = ['DNF', 'DNS', 'DNC', 'DSQ']
 
     if (status === 'X') {
