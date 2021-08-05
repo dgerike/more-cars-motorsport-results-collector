@@ -173,6 +173,10 @@ function convertStatus(status) {
         status = 'DNF' // Formula E
     }
 
+    if (status === 'DQ') {
+        status = 'DSQ' // Formula 1
+    }
+
     if (possibleStatus.includes(status)) {
         return status
     }
