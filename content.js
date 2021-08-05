@@ -138,6 +138,7 @@ function normalizeDuration(duration) {
     duration = duration.replace(' ', '') // "+ 10.199s"
     duration = duration.replace('+', '') // "+10.199s"
     duration = duration.replace('s', '') // "10.199s"
+    duration = duration.replace('\'', ':') // "1'10.199s"
 
     if ((duration.match(/:/g) || []).length === 0) { // "53.027"
         duration = '0:0:' + duration
