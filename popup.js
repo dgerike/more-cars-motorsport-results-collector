@@ -305,7 +305,7 @@ let racingSeries = [{
         "driver_name_2": "td:nth-child(1) .desktopinline .resultdetails-table-name-item:nth-child(2) a",
         "team_name": "td:nth-child(1) .resultdetails-table-car .desktopinline",
         "fastest_lap": "td:nth-child(2)",
-        "laps": "td:nth-child(4)",
+        "laps": "td:nth-child(5)",
         "status": "td:nth-child(1) .resultdetails-table-number",
     }, {
         "session_type": "practice",
@@ -319,7 +319,7 @@ let racingSeries = [{
         "driver_name_2": "td:nth-child(1) .desktopinline .resultdetails-table-name-item:nth-child(2) a",
         "team_name": "td:nth-child(1) .resultdetails-table-car .desktopinline",
         "fastest_lap": "td:nth-child(2)",
-        "laps": "td:nth-child(4)",
+        "laps": "td:nth-child(5)",
         "status": "td:nth-child(1) .resultdetails-table-number",
     }]
 }, {
