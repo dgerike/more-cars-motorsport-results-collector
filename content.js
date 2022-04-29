@@ -77,15 +77,30 @@ function extractResultsForPosition(pos, selectors) {
         startNumber = startNumber.replace('#', '')
     }
 
-    const driverName = extractDataPoint(baseSelector, 'driver_name', selectors)
+    let driverName = extractDataPoint(baseSelector, 'driver_name', selectors)
+    if (!driverName) {
+        driverName = extractDataPoint(baseSelector, 'driver_name_fallback', selectors)
+    }
     const driverFirstName = extractDataPoint(baseSelector, 'driver_first_name', selectors)
     let driverFullName = driverName
     if (driverFirstName) {
         driverFullName = driverFirstName + ' ' + driverName
     }
-    const driverName2 = extractDataPoint(baseSelector, 'driver_name_2', selectors)
-    const driverName3 = extractDataPoint(baseSelector, 'driver_name_3', selectors)
-    const driverName4 = extractDataPoint(baseSelector, 'driver_name_4', selectors)
+
+    let driverName2 = extractDataPoint(baseSelector, 'driver_name_2', selectors)
+    if (!driverName2) {
+        driverName2 = extractDataPoint(baseSelector, 'driver_name_2_fallback', selectors)
+    }
+
+    let driverName3 = extractDataPoint(baseSelector, 'driver_name_3', selectors)
+    if (!driverName3) {
+        driverName3 = extractDataPoint(baseSelector, 'driver_name_3_fallback', selectors)
+    }
+
+    let driverName4 = extractDataPoint(baseSelector, 'driver_name_4', selectors)
+    if (!driverName4) {
+        driverName4 = extractDataPoint(baseSelector, 'driver_name_4_fallback', selectors)
+    }
     driverFullName = [driverFullName, driverName2, driverName3, driverName4]
         .filter(Boolean)
         .join(' / ')
