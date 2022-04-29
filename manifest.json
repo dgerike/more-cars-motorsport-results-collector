@@ -4,16 +4,7 @@
   "description": "A little helper that makes it easier to add motorsport results to the 'More Cars' database. (more-cars.net)",
   "homepage_url": "https://github.com/dgerike/more-cars-motorsport-results-collector",
   "permissions": [
-    "storage",
-    "https://www.motorsport-magazin.com/*",
-    "https://www.motorsport.com/*",
-    "https://www.dtm.com/*",
-    "https://www.formula1.com/*",
-    "https://www.fiaformulae.com/*",
-    "https://fiaresultsandstatistics.motorsportstats.com/*",
-    "https://www.gt-world-challenge-europe.com/*",
-    "https://www.supercars.com/*",
-    "https://more-cars.net/api/v1/*"
+    "storage"
   ],
   "content_scripts": [
     {
@@ -34,11 +25,22 @@
       ]
     }
   ],
-  "browser_action": {
+  "host_permissions": [
+    "https://www.motorsport-magazin.com/*",
+    "https://www.motorsport.com/*",
+    "https://www.dtm.com/*",
+    "https://www.formula1.com/*",
+    "https://www.fiaformulae.com/*",
+    "https://fiaresultsandstatistics.motorsportstats.com/*",
+    "https://www.gt-world-challenge-europe.com/*",
+    "https://www.supercars.com/*",
+    "https://more-cars.net/api/v1/*"
+  ],
+  "action": {
     "default_popup": "popup.html"
   },
   "icons": {
     "32": "img/icon.png"
   },
-  "manifest_version": 2
+  "manifest_version": 3
 }
