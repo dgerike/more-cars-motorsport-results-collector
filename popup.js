@@ -54,7 +54,7 @@ let racingSeries = [{
 }, {
     "name": "DTM Trophy",
     "more_cars_id": 222981,
-    "source": "https://www.dtm.com/de/dtm-trophy/",
+    "source": "https://www.dtm.com/de/ergebnisse-dtmtrophy",
     "racing_series_indicator_title": "DTM Trophy",
     "selectors": [{
         "session_type": "race",
