@@ -194,6 +194,10 @@ function convertStatus(status) {
         status = 'DSQ' // Formula 1
     }
 
+    if (status === 'DNQ') {
+        status = 'DNF' // DTM / DTM Trophy
+    }
+
     if (possibleStatus.includes(status)) {
         return status
     }
