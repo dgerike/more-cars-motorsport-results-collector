@@ -45,6 +45,13 @@ function extractDataPoint(baseSelector, fieldName, selectors) {
         }
     }
 
+    if (selectors[fieldName + '_attribute']) {
+        datapoint = document
+            .querySelector(baseSelector + ' ' + selectors[fieldName])
+            .getAttribute(selectors[fieldName + '_attribute'])
+            .trim()
+    }
+
     return datapoint
 }
 
