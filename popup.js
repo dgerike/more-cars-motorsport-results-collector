@@ -52,6 +52,38 @@ let racingSeries = [{
         "laps": "td:nth-child(6) span",
     }]
 }, {
+    "name": "BTCC",
+    "more_cars_id": 667,
+    "source": "https://www.btcc.net/results",
+    "racing_series_indicator_title": "BTCC",
+    "selectors": [{
+        "session_type": "race",
+        "session_type_indicator": ".pagedetail-menu-buttons li.active a",
+        "session_type_indicator_value": "Race",
+        "table_selector": ".active table",
+        "row_selector": "tbody tr",
+        "position": "td:nth-child(1)",
+        "start_number": "td:nth-child(2)",
+        "driver_name": "td:nth-child(4)",
+        "team_name": "td:nth-child(4)",
+        "team_name_attribute": "title",
+        "laps": "td:nth-child(6)",
+        "fastest_lap": "td:nth-child(8)",
+        "status": "td:nth-child(1) strong",
+    }, {
+        "session_type": "qualifying",
+        "session_type_indicator": ".pagedetail-menu-buttons li.active a",
+        "session_type_indicator_value": "Qualifying",
+        "table_selector": ".active table",
+        "row_selector": "tbody tr",
+        "position": "td:nth-child(1)",
+        "start_number": "td:nth-child(2)",
+        "driver_name": "td:nth-child(4)",
+        "team_name": "td:nth-child(4)",
+        "team_name_attribute": "title",
+        "fastest_lap": "td:nth-child(7)",
+    }]
+}, {
     "name": "DTM Trophy",
     "more_cars_id": 222981,
     "source": "https://www.dtm.com/de/ergebnisse-dtmtrophy",

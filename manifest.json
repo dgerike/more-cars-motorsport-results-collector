@@ -11,6 +11,7 @@
       "matches": [
         "https://www.motorsport.com/*",
         "https://de.motorsport.com/*",
+        "https://www.btcc.net/*",
         "https://www.dtm.com/*",
         "https://www.formula1.com/*",
         "https://www.fiaformulae.com/*",
@@ -28,6 +29,7 @@
   "host_permissions": [
     "https://www.motorsport.com/*",
     "https://de.motorsport.com/*",
+    "https://www.btcc.net/*",
     "https://www.dtm.com/*",
     "https://www.formula1.com/*",
     "https://www.fiaformulae.com/*",
