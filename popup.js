@@ -426,47 +426,6 @@ let racingSeries = [{
         "status": "tr td:nth-child(1)",
         "laps": "tr td:nth-child(6)",
     }]
-}, {
-    "name": "W Series",
-    "more_cars_id": 319294,
-    "source": "https://www.motorsport.com/w-series/",
-    "racing_series_indicator_title": "W Series",
-    "selectors": [{
-        "session_type": "race",
-        "session_type_indicator": ".ms-session-type_btn.current a",
-        "session_type_indicator_value": "RACE",
-        "table_selector": "table",
-        "row_selector": "tbody tr",
-        "position": "td:nth-child(1) span",
-        "start_number": "td:nth-child(3) span",
-        "driver_name": "td:nth-child(4) span",
-        "race_time": "td:nth-child(6) span",
-        "laps": "td:nth-child(5) span",
-        "points": "td:nth-child(9) span",
-        "status": "td:nth-child(2) span",
-    }, {
-        "session_type": "qualifying",
-        "session_type_indicator": ".ms-session-type_btn.current a",
-        "session_type_indicator_value": "Q",
-        "table_selector": "table",
-        "row_selector": "tbody tr",
-        "position": "td:nth-child(1) span",
-        "start_number": "td:nth-child(2) span",
-        "driver_name": "td:nth-child(3) span",
-        "fastest_lap": "td:nth-child(5) span",
-        "laps": "td:nth-child(4) span",
-    }, {
-        "session_type": "practice",
-        "session_type_indicator": ".ms-session-type_btn.current a",
-        "session_type_indicator_value": "FP",
-        "table_selector": "table",
-        "row_selector": "tbody tr",
-        "position": "td:nth-child(1) span",
-        "start_number": "td:nth-child(2) span",
-        "driver_name": "td:nth-child(3) span",
-        "fastest_lap": "td:nth-child(5) span",
-        "laps": "td:nth-child(4) span",
-    }]
 }]
 
 renderRacingSeriesList(racingSeries)

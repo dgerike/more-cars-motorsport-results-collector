@@ -9,7 +9,6 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.motorsport.com/*",
         "https://de.motorsport.com/*",
         "https://www.btcc.net/*",
         "https://www.dtm.com/*",
@@ -27,7 +26,6 @@
     }
   ],
   "host_permissions": [
-    "https://www.motorsport.com/*",
     "https://de.motorsport.com/*",
     "https://www.btcc.net/*",
     "https://www.dtm.com/*",
