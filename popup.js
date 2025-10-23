@@ -176,7 +176,7 @@ let racingSeries = [{
     "racing_series_indicator_title": "FORMULA 1",
     "selectors": [{
         "session_type": "qualifying",
-        "session_type_indicator": ".f1-table thead tr th:nth-child(7) p",
+        "session_type_indicator": "table thead tr th:nth-child(7)",
         "session_type_indicator_value": "Q3",
         "table_selector": "table",
         "row_selector": "tbody tr",
